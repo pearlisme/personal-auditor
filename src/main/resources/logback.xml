@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="LOGS_HOME" value="./logs/" />
+    <property name="LOG_PATTERN" value="%d:[%5p]: [%X{providerService}: %X{traceId}: %X{component}]:  %magenta([%thread]) %highlight(%-5level) %logger{36}.%M - %m%n" />
+
+    <appender name="DATA-STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger{36}.%M - %msg%n</pattern>-->
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="DATA-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS_HOME}Applog.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS_HOME}Applog-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxHistory>3</maxHistory>
+            <maxFileSize>50MB</maxFileSize>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger{36}.%M - %msg%n</pattern>-->
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!--Third party jars start-->
+    <logger name="org.hibernate" level="WARN" />
+    <logger name="org.hibernate.validator" level="WARN" />
+    <logger name="org.springframework" level="WARN" />
+
+
+    <!--    Utility Framework-->
+    <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE" />
+    <logger name="org.hibernate.SQL" level="DEBUG" />
+
+    <logger name="com.mpro.async" level="DEBUG" additivity="false">
+        <appender-ref ref="DATA-FILE" />
+        <appender-ref ref="DATA-STDOUT" />
+    </logger>
+    <root level="INFO">
+        <appender-ref ref="DATA-FILE" />
+        <appender-ref ref="DATA-STDOUT" />
+    </root>
+</configuration>
