@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    #    url: jdbc:mysql://localhost:3306/tms
+    url: jdbc:postgresql://ep-delicate-rain-a1rjkse3.ap-southeast-1.pg.koyeb.app/koyebdb
+    username: koyeb-adm
+    password: npg_H3afwW6yXvBZ
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  logging:
+    level:
+      web: debug
+      root: debug
+      sql: trace
+  management:
+    endpoints:
+      web:
+        exposure:
+          include: '*'
