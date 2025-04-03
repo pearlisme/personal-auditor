@@ -20,6 +20,9 @@ public class AccountController
     @GetMapping("/v1/account")
     public String getAccountDetails()
     {
+
+        AuditEntity auditEntity = new AuditEntity();
+        auditEntity.setUserId("ZXMR123");
         return "Account details";
     }
 
