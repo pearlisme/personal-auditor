@@ -1,46 +1,72 @@
 package com.pa.api.personalauditor.controller;
 
+import com.pa.api.personalauditor.dto.AccountDTO;
 import com.pa.api.personalauditor.entity.AccountEntity;
-import com.pa.api.personalauditor.entity.AuditEntity;
-import com.pa.api.personalauditor.repository.AuditRepository;
-import com.pa.api.personalauditor.service.AuditService;
+import com.pa.api.personalauditor.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-@RestController("/api")
-public class AccountController
-{
+import java.util.List;
+import java.util.logging.Logger;
+
+@RestController
+@RequestMapping("/api/accounts")
+public class AccountController {
+
+    Logger logger = Logger.getLogger(AccountController.class.getName());
 
     @Autowired
-    AuditService auditService;
+    AccountService accountService;
 
-    @GetMapping("/v1/account")
-    public String getAccountDetails()
-    {
+    @GetMapping("/load/{count}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<AccountDTO> loadAccounts(@PathVariable Long count) {
 
-        AuditEntity auditEntity = new AuditEntity();
-        auditEntity.setUserId("ZXMR123");
-        return "Account details";
+        int i = 0;
+        for (i = 1; i <= count; i++) {
+            accountService.addAccount(new AccountDTO(null, "Savings" + i, "Active", "1000.00" + i, "IDFC LTD", "", "" + i, "" + i));
+        }
+
+        logger.info("Loaded " + i + " accounts into the database.");
+        return accountService.findAccounts();
     }
 
-    @GetMapping("/v1/account/transactions")
-    public String getAccountTransactions()
-    {
-        AuditEntity auditEntity = new AuditEntity();
-        auditEntity.setUserId("ZXMR123");
-
-        auditService.auditEntry(auditEntity);
-        return "Account transactions";
+    @GetMapping("/")
+    public List<AccountDTO> findAccounts() {
+        return accountService.findAccounts();
     }
 
-    @PostMapping("/v1/account/create")
-    public String createAccount(@RequestBody AccountEntity accountEntity)
-    {
+    @GetMapping("/{accountId}")
+    public List<AccountDTO> findAccountsById(@PathVariable Long accountId) {
+        return accountService.findAccounts();
+    }
 
-        return "Account created";
+    @PostMapping
+    public ResponseEntity<AccountDTO> addAccount(@RequestBody AccountDTO accountDTO) {
+        AccountDTO accountDTOAdded = accountService.addAccount(accountDTO);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(accountDTOAdded);
+    }
 
+    @PutMapping("/{accountId}")
+    @ResponseStatus(HttpStatus.OK)
+    public AccountDTO updateAccount(@PathVariable Long accountId
+            ,@RequestBody final AccountDTO accountDTO) {
+
+            AccountDTO accountDTOUpdate = new AccountDTO();
+            if (accountService.findAccountById(accountId) != null){
+            accountDTOUpdate = accountService.updateAccount(accountDTO);
+            logger.info("Updated account: " + accountDTOUpdate);
+            }
+        return accountDTOUpdate;
+    }
+
+    @DeleteMapping
+    public ResponseEntity<AccountEntity> deleteAccount(@RequestBody AccountEntity accountEntity) {
+        accountService.deleteAccount(accountEntity.getAccountId());
+        logger.info("Deleted account: " + accountEntity);
+        return ResponseEntity.ok().body(accountEntity);
     }
 }

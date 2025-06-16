@@ -1,4 +1,6 @@
 spring:
+#  liquibase:
+#    change-log: 'classpath:db/changelog/db.changelog-master.yaml'
   datasource:
     #    url: jdbc:mysql://localhost:3306/tms
     url: jdbc:postgresql://ep-delicate-rain-a1rjkse3.ap-southeast-1.pg.koyeb.app/koyebdb
@@ -23,3 +25,17 @@ spring:
       web:
         exposure:
           include: '*'
+springdevtools:
+  restart:
+    enabled: true
+  livereload:
+    enabled: true
+  add-include: true
+  exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+springdoc:
+    enabled: true
+    api-docs:
+      path: /v3/api-docs
+    swagger-ui:
+      config-url: /v3/api-docs/swagger-config
+      path: /pa-ui.html

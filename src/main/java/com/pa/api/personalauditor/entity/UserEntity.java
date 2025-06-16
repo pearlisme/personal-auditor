@@ -1,14 +1,21 @@
 package com.pa.api.personalauditor.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
-@Data
+import java.util.List;
+
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Setter
+@Getter
 public class UserEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(updatable = false, nullable = false)
+    public Long userId;
     public String userName;
     public String password;
     public String email;
@@ -22,5 +29,8 @@ public class UserEntity {
     public String country;
     public String dateOfBirth;
     public String appAccess;
+
+    @OneToMany(mappedBy = "ownerId")
+    List<VehicleEntity> vehicles;
 
 }

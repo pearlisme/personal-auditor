@@ -1,11 +1,19 @@
 package com.pa.api.personalauditor.entity;
 
-import lombok.Data;
+import jakarta.persistence.*;
+import lombok.*;
 
-@Data
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public class CategoryEntity {
 
-    public String categoryId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(updatable = false, nullable = false)
+    public Long categoryId;
     public String categoryName;
     public String categoryDescription;
     public String categoryType;

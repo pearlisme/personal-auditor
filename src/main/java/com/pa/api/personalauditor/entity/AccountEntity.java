@@ -1,10 +1,21 @@
 package com.pa.api.personalauditor.entity;
 
-import lombok.Data;
+import jakarta.persistence.*;
+import lombok.*;
 
+@Entity
+@Table(name="ACCOUNT")
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 @Data
-public class AccountEntity {
-    public String accountId;
+public class AccountEntity implements java.io.Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(updatable = false, nullable = false)
+    public Long accountId;
     public String accountName;
     public String accountType;
     public String accountBalance;

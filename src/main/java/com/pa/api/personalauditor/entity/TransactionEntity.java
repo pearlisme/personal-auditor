@@ -1,10 +1,19 @@
 package com.pa.api.personalauditor.entity;
 
-import lombok.Data;
+import jakarta.persistence.*;
+import lombok.*;
 
-@Data
+@Entity
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class TransactionEntity {
-    public String transactionId;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(updatable = false, nullable = false)
+    public Long transactionId;
     public String transactionDate;
     public String transactionAmount;
     public String transactionType;
