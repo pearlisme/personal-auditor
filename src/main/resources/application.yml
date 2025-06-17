@@ -1,41 +1,69 @@
 spring:
-#  liquibase:
-#    change-log: 'classpath:db/changelog/db.changelog-master.yaml'
+  profiles:
+    active:
+      - develop
+
+
+---
+# Application properties for the TMS (Transport Management System) application
+spring:
+  profile: develop
   datasource:
     #    url: jdbc:mysql://localhost:3306/tms
     url: jdbc:postgresql://ep-delicate-rain-a1rjkse3.ap-southeast-1.pg.koyeb.app/koyebdb
     username: koyeb-adm
     password: npg_H3afwW6yXvBZ
-    driver-class-name: org.postgresql.Driver
+#    driver-class-name: org.postgresql4.Driver
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: 'create-drop'
+#      ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-  logging:
-    level:
-      web: debug
-      root: debug
-      sql: trace
-  management:
-    endpoints:
-      web:
-        exposure:
-          include: '*'
-springdevtools:
-  restart:
-    enabled: true
-  livereload:
-    enabled: true
-  add-include: true
-  exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+logging:
+  level:
+    org.springframework:
+      web: info
+      security: info
+      data: debug
+      jpa: debug
+      liquibase: info
+      jdbc: debug
+    web: info
+    root: info
+    sql: trace
+  pattern:
+#    console: "%clr(TS=){faint}%clr(%d{yyyy-MM-dd'T'HH:mm:ss.SSS'Z', UTC}){faint} [%t] %clr(APP=){faint}%clr(${spring.application.name:null}){yellow} %clr(LEVEL=){faint}%clr(${LOG_LEVEL_PATTERN:%p}) %clr(CLASS=){faint}%clr(%logger{26}){cyan} %clr(%TRACE_ID){faint}%clr(%X{X-Correlation-Id:-null}){reverse} | %m%n%ex"
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - [TraceID: %X{traceId}] %msg%n"
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+        exclude:
+          - 'loggers'
+          - 'metrics'
+  endpoint:
+    health:
+      show-details: ALWAYS
 springdoc:
-    enabled: true
+#    enabled: true
     api-docs:
       path: /v3/api-docs
     swagger-ui:
       config-url: /v3/api-docs/swagger-config
       path: /pa-ui.html
+
+springdevtools:
+  restart:
+    enabled: true
+  livereload:
+    enabled: true
+#  add-include: true
+#  exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+

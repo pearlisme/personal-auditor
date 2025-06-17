@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @RestController
@@ -29,7 +30,7 @@ public class AccountController {
             accountService.addAccount(new AccountDTO(null, "Savings" + i, "Active", "1000.00" + i, "IDFC LTD", "", "" + i, "" + i));
         }
 
-        logger.info("Loaded " + i + " accounts into the database.");
+        logger.log(Level.INFO,"Loaded %d accounts into the database.", i);
         return accountService.findAccounts();
     }
 
