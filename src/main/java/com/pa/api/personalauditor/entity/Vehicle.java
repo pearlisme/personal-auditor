@@ -1,6 +1,7 @@
 package com.pa.api.personalauditor.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.*;
 
 import java.util.List;
@@ -11,15 +12,18 @@ import java.util.List;
 @Entity
 @Setter
 @Getter
-@Table(name="VEHICLE")
-public class VehicleEntity {
+@Builder
+public class Vehicle {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false, nullable = false)
     public Long vehicleId;
 
+    @Valid
     public String make;
+
+    @Valid
     public String model;
     public String year;
     public String color;

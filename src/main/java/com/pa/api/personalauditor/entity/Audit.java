@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Setter
 @Getter
-public class AuditEntity {
+public class Audit {
 
     /*@Id
     @GeneratedValue(generator = "system-uuid")

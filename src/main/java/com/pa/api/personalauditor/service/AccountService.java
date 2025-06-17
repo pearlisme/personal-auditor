@@ -1,7 +1,7 @@
 package com.pa.api.personalauditor.service;
 
 import com.pa.api.personalauditor.dto.AccountDTO;
-import com.pa.api.personalauditor.entity.AccountEntity;
+import com.pa.api.personalauditor.entity.Account;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public interface AccountService {
     AccountDTO addAccount(AccountDTO accountDTO);
     AccountDTO updateAccount(AccountDTO accountDTO);
     void deleteAccount(Long accountId);
-    List<AccountEntity> findAccountsByUserId(Long userId);
-    List<AccountEntity> findAccountsByType(String accountType);
-    List<AccountEntity> findAccountsByStatus(String status);
+    List<Account> findAccountsByUserId(Long userId);
+    List<Account> findAccountsByType(String accountType);
+    List<Account> findAccountsByStatus(String status);
 }

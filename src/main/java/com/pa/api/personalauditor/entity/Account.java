@@ -4,13 +4,12 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name="ACCOUNT")
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
-@Data
-public class AccountEntity implements java.io.Serializable {
+@Builder
+public class Account implements java.io.Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

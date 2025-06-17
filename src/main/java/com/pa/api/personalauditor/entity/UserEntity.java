@@ -31,6 +31,6 @@ public class UserEntity {
     public String appAccess;
 
     @OneToMany(mappedBy = "ownerId")
-    List<VehicleEntity> vehicles;
+    List<Vehicle> vehicles;
 
 }

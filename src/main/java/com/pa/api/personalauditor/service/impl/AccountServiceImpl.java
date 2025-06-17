@@ -1,7 +1,7 @@
 package com.pa.api.personalauditor.service.impl;
 
 import com.pa.api.personalauditor.dto.AccountDTO;
-import com.pa.api.personalauditor.entity.AccountEntity;
+import com.pa.api.personalauditor.entity.Account;
 import com.pa.api.personalauditor.mapper.AccountMapper;
 import com.pa.api.personalauditor.repository.AccountRepository;
 import com.pa.api.personalauditor.service.AccountService;
@@ -22,12 +22,12 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public List<AccountDTO> findAccounts() {
-        List<AccountEntity> accountEntities = accountRepository.findAll();
+        List<Account> accountEntities = accountRepository.findAll();
         AccountDTO accountDTOs = null;
         List<AccountDTO> accountDTOsList = new ArrayList<>();
-        for (AccountEntity accountEntity : accountEntities) {
-            System.out.println("Account ID: " + accountEntity.getAccountId());
-            accountDTOs = accountMapper.accountEntityToAccountDto(accountEntity);
+        for (Account account : accountEntities) {
+            System.out.println("Account ID: " + account.getAccountId());
+            accountDTOs = accountMapper.accountEntityToAccountDto(account);
             accountDTOsList.add(accountDTOs);
         }
         return accountDTOsList;
@@ -40,14 +40,14 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AccountDTO addAccount(AccountDTO accountDTO) {
-        AccountEntity accountEntity = accountMapper.accountDTOToAccountEntity(accountDTO);
-        if (accountEntity.getAccountId() != null) {
-            if (accountRepository.existsById(accountEntity.getAccountId())) {
-                throw new IllegalArgumentException("Account with ID " + accountEntity.getAccountId() + " already exists.");
+        Account account = accountMapper.accountDTOToAccountEntity(accountDTO);
+        if (account.getAccountId() != null) {
+            if (accountRepository.existsById(account.getAccountId())) {
+                throw new IllegalArgumentException("Account with ID " + account.getAccountId() + " already exists.");
             }
         }
-        accountRepository.save(accountEntity);
-        AccountDTO accountDTOAdded = accountMapper.accountEntityToAccountDto(accountEntity);
+        accountRepository.save(account);
+        AccountDTO accountDTOAdded = accountMapper.accountEntityToAccountDto(account);
         return accountDTOAdded;
     }
 
@@ -56,9 +56,9 @@ public class AccountServiceImpl implements AccountService {
         if (accountDTO.getAccountId() == null || !accountRepository.existsById(accountDTO.getAccountId())) {
             throw new IllegalArgumentException("Account with ID " + accountDTO.getAccountId() + " does not exist.");
         }
-        AccountEntity accountEntity = accountMapper.accountDTOToAccountEntity(accountDTO);
-        AccountEntity savedAccountEntity = accountRepository.save(accountEntity);
-        return accountMapper.accountEntityToAccountDto(savedAccountEntity);
+        Account account = accountMapper.accountDTOToAccountEntity(accountDTO);
+        Account savedAccount = accountRepository.save(account);
+        return accountMapper.accountEntityToAccountDto(savedAccount);
     }
 
     @Override
@@ -70,17 +70,17 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public List<AccountEntity> findAccountsByUserId(Long userId) {
+    public List<Account> findAccountsByUserId(Long userId) {
         return List.of();
     }
 
     @Override
-    public List<AccountEntity> findAccountsByType(String accountType) {
+    public List<Account> findAccountsByType(String accountType) {
         return List.of();
     }
 
     @Override
-    public List<AccountEntity> findAccountsByStatus(String status) {
+    public List<Account> findAccountsByStatus(String status) {
         return List.of();
     }
 }

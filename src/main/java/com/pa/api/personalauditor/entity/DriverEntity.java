@@ -25,7 +25,7 @@ public class DriverEntity {
     private String phone;
 
     @ManyToMany(mappedBy = "drivers")
-    private List<VehicleEntity> vehicles;
+    private List<Vehicle> vehicles;
 
     // Getters and Setters
 

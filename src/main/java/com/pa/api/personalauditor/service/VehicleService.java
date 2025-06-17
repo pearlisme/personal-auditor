@@ -1,19 +1,20 @@
 package com.pa.api.personalauditor.service;
 
-import com.pa.api.personalauditor.entity.VehicleEntity;
+import com.pa.api.personalauditor.dto.VehicleDTO;
+import com.pa.api.personalauditor.entity.Vehicle;
 
 import java.util.List;
 
 public interface VehicleService {
 
-    List<VehicleEntity> findVehicles();
-    VehicleEntity createVehicle(VehicleEntity vehicleEntity);
-    VehicleEntity updateVehicle(VehicleEntity vehicleEntity);
-    VehicleEntity deleteVehicle(Long accountId);
+    List<VehicleDTO> findVehicles();
+    VehicleDTO createVehicle(VehicleDTO vehicleDTO);
+    VehicleDTO updateVehicle(VehicleDTO vehicleDTO);
+    VehicleDTO deleteVehicle(Long accountId);
 
-    VehicleEntity findVehicleById(Long vehicleId);
-    List<VehicleEntity> findVehiclesByUserId(Long userId);
-    List<VehicleEntity> findVehiclesByType(String vehicleType);
-    List<VehicleEntity> findVehiclesByStatus(String status);
+    VehicleDTO findVehicleById(Long vehicleId);
+    List<VehicleDTO> findVehiclesByUserId(Long userId);
+    List<VehicleDTO> findVehiclesByType(String vehicleType);
+    List<VehicleDTO> findVehiclesByStatus(String status);
 }
 

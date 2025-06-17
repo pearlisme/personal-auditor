@@ -1,7 +1,7 @@
 package com.pa.api.personalauditor.controller;
 
 import com.pa.api.personalauditor.dto.AccountDTO;
-import com.pa.api.personalauditor.entity.AccountEntity;
+import com.pa.api.personalauditor.entity.Account;
 import com.pa.api.personalauditor.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -65,9 +65,9 @@ public class AccountController {
     }
 
     @DeleteMapping
-    public ResponseEntity<AccountEntity> deleteAccount(@RequestBody AccountEntity accountEntity) {
-        accountService.deleteAccount(accountEntity.getAccountId());
-        logger.info("Deleted account: " + accountEntity);
-        return ResponseEntity.ok().body(accountEntity);
+    public ResponseEntity<Account> deleteAccount(@RequestBody Account account) {
+        accountService.deleteAccount(account.getAccountId());
+        logger.info("Deleted account: " + account);
+        return ResponseEntity.ok().body(account);
     }
 }

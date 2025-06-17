@@ -25,5 +25,5 @@ public class MaintenanceRecordEntity {
 
     @ManyToOne
     @JoinColumn(name = "vehicle_id", referencedColumnName = "vehicleId")
-    private VehicleEntity vehicle;
+    private Vehicle vehicle;
 }
